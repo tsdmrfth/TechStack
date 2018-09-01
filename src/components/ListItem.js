@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import {LayoutAnimation, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {CardSection} from './common';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -10,6 +10,23 @@ import Reactotron from "reactotron-react-native";
  */
 
 class ListItem extends Component {
+
+    componentWillUpdate() {
+        const CustomLayoutSpring = {
+            duration: 200,
+            create: {
+                type: LayoutAnimation.Types.spring,
+                property: LayoutAnimation.Properties.opacity,
+                springDamping: 0.4,
+            },
+            update: {
+                type: LayoutAnimation.Types.spring,
+                springDamping: 0.4,
+            },
+        };
+
+        LayoutAnimation.configureNext(CustomLayoutSpring)
+    }
 
     render() {
 
