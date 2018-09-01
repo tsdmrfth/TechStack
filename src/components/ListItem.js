@@ -26,10 +26,25 @@ class ListItem extends Component {
                             {title}
                         </Text>
                     </CardSection>
+                    {this.renderDescription()}
                 </View>
             </TouchableWithoutFeedback>
         );
 
+    }
+
+    renderDescription() {
+        const {library, shouldExpandDescription} = this.props;
+
+        if (shouldExpandDescription) {
+            return (
+                <CardSection>
+                    <Text>
+                        {library.description}
+                    </Text>
+                </CardSection>
+            );
+        }
     }
 
 }
@@ -45,8 +60,9 @@ const styles = {
     }
 };
 
-const mapStateToProps = state => {
-    return {selectedLibraryId: state.selectedLibraryId};
+const mapStateToProps = (state, ownProps) => {
+    const shouldExpandDescription = ownProps.library.id === state.selectedLibraryId;
+    return {shouldExpandDescription};
 };
 
 export default connect(mapStateToProps, actions)(ListItem);
